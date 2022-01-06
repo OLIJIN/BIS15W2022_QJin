@@ -24,7 +24,11 @@ Before you begin any project in RStudio, it is important that you are in the cor
 
 Run the following code by clicking the small green arrow to check your current working directory.  
 ```{r}
-getwd()
+getwd() #asking R to get working directory, where I am/the location
+```
+
+```{r}
+#code chunk, option+command+i
 ```
 
 If you are not in the **lab 1 folder**, please navigate to it: Session>Set Working Directory>Choose Directory>Desktop>lab1.  
@@ -32,6 +36,9 @@ If you are not in the **lab 1 folder**, please navigate to it: Session>Set Worki
 Re-run the code below to confirm.
 ```{r}
 getwd()
+```
+```{r}
+3-1
 ```
 
 ## R  
