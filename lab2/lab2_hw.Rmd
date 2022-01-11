@@ -1,6 +1,6 @@
 ---
 title: "Lab 2 Homework"
-author: "Please Add Your Name Here"
+author: "Qianyu Jin"
 date: "`r Sys.Date()`"
 output:
   html_document:
@@ -14,8 +14,10 @@ Answer the following questions and complete the exercises in RMarkdown. Please e
 Make sure to use the formatting conventions of RMarkdown to make your report neat and clean!  
 
 1. What is a vector in R?  
+Vector is a way of organizing data of same type in R, where the data types are a sequence of integer, character, logical, etc.
 
 2. What is a data matrix in R?  
+A data matrix is a set of data arranged in a teo dimensional structure, like a series of stacked vectors.
 
 3. Below are data collected by three scientists (Jill, Steve, Susan in order) measuring temperatures of eight hot springs. Run this code chunk to create the vectors.  
 ```{r}
@@ -30,18 +32,52 @@ spring_8 <- c(36.80, 36.45, 33.15)
 ```
 
 4. Build a data matrix that has the springs as rows and the columns as scientists.  
+```{r}
+temperature <- c(spring_1,spring_2,spring_3,spring_4,spring_5,spring_6,spring_7,spring_8)
+temperature_matrix <- matrix(temperature,nrow = 8, byrow = T)
+temperature_matrix
+```
 
 5. The names of the springs are 1.Bluebell Spring, 2.Opal Spring, 3.Riverside Spring, 4.Too Hot Spring, 5.Mystery Spring, 6.Emerald Spring, 7.Black Spring, 8.Pearl Spring. Name the rows and columns in the data matrix. Start by making two new vectors with the names, then use `colnames()` and `rownames()` to name the columns and rows.
+```{r}
+spring_names <- c("Bluebell Spring", "Opal Spring", "Riverside Spring", "Too Hot Spring", "Mystery Spring", "Emerald Spring", "Black Spring", "Pearl Spring")
+scientists <- c("Jill","Steve","Susan")
+colnames(temperature_matrix) <- scientists
+rownames(temperature_matrix) <- spring_names
+temperature_matrix
+```
 
 6. Calculate the mean temperature of all eight springs.
+```{r}
+mean_temp <- rowMeans(temperature_matrix)
+mean_temp
+```
 
 7. Add this as a new column in the data matrix.  
+```{r}
+all_temperature_matrix <- cbind(temperature_matrix,mean_temp)
+all_temperature_matrix
+```
+
 
 8. Show Susan's value for Opal Spring only.
+```{r}
+all_temperature_matrix[2,3]
+```
 
 9. Calculate the mean for Jill's column only.  
+```{r}
+JillColumn <- temperature_matrix[,1]
+mean(JillColumn)
+```
 
 10. Use the data matrix to perform one calculation or operation of your interest.
+
+I would like to calculate the mean temperature of all the springs data collected, after deleting the lowest and highest data points. 
+```{r}
+newvec <- sort(all_temperature_matrix, decreasing=F)
+mean(newvec[2:(length(all_temperature_matrix)-1)])
+```
 
 ## Push your final code to GitHub!
 Please be sure that you check the `keep md` file in the knit preferences.  
