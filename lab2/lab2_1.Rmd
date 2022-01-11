@@ -138,6 +138,7 @@ mean(new_vector)
 
 4. Recalculate the mean using the following code chunk. Why is the useful?  
 ```{r}
+
 mean(new_vector, na.rm=T) #na.rm removes the NA values in the vector
 ```
 
