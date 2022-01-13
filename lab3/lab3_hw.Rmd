@@ -91,13 +91,16 @@ mean(ssleeptotal)
 ```
 
 10. Which animal is the sleepiest among the entire dataframe?
+
+little brown bat is the sleepiest
 ```{r}
-table(sleep$sleep_total)
+max(sleep$sleep_total)
 
 ```
 
 ```{r}
-
+sleepiest <- subset(sleep,sleep_total==19.9)
+sleepiest
 ```
 
 ## Push your final code to GitHub!

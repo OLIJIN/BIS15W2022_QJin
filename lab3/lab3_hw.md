@@ -238,25 +238,28 @@ mean(ssleeptotal)
 
 10. Which animal is the sleepiest among the entire dataframe?
 
+little brown bat is the sleepiest
+
 ```r
-table(sleep$sleep_total)
+max(sleep$sleep_total)
 ```
 
 ```
-## 
-##  1.9  2.7  2.9    3  3.1  3.3  3.5  3.8  3.9    4  4.4  5.2  5.3  5.4  5.6  6.2 
-##    1    1    1    1    1    1    1    1    1    1    1    1    2    1    1    1 
-##  6.3    7  7.7    8  8.3  8.4  8.6  8.7  8.9  9.1  9.4  9.5  9.6  9.7  9.8   10 
-##    2    1    1    1    1    2    1    2    1    2    2    1    1    1    2    1 
-## 10.1 10.3 10.4 10.6 10.9   11 11.1 11.3 11.5 12.1 12.5 12.8   13 13.5 13.7 13.8 
-##    3    2    1    1    1    2    1    1    1    1    4    2    1    1    1    1 
-## 14.2 14.3 14.4 14.5 14.6 14.9 15.6 15.8 15.9 16.6   17 17.4   18 18.1 19.4 19.7 
-##    1    1    2    1    1    2    1    2    1    1    1    1    1    1    1    1 
-## 19.9 
-##    1
+## [1] 19.9
 ```
 
 
+```r
+sleepiest <- subset(sleep,sleep_total==19.9)
+sleepiest
+```
+
+```
+##                name  genus    vore      order conservation sleep_total
+## 43 Little brown bat Myotis insecti Chiroptera         <NA>        19.9
+##    sleep_rem sleep_cycle awake brainwt bodywt
+## 43         2         0.2   4.1 0.00025   0.01
+```
 
 ## Push your final code to GitHub!
 Please be sure that you check the `keep md` file in the knit preferences.   
