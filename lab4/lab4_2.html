@@ -10,7 +10,7 @@
 
 
 
-<meta name="date" content="2022-01-13" />
+<meta name="date" content="2022-01-18" />
 
 <title>Transforming data 2: filter()</title>
 
@@ -1517,7 +1517,7 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Transforming data 2: <code>filter()</code></h1>
-<h4 class="date">2022-01-13</h4>
+<h4 class="date">2022-01-18</h4>
 
 </div>
 
@@ -1561,8 +1561,41 @@ div.tocify {
 <pre><code>## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<pre class="r"><code>mammals</code></pre>
+<pre><code>## # A tibble: 1,440 × 13
+##    order   family   Genus  species    mass gestation newborn weaning `wean mass`
+##    &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;       &lt;dbl&gt;
+##  1 Artiod… Antiloc… Antil… america… 4.54e4      8.13   3246.    3           8900
+##  2 Artiod… Bovidae  Addax  nasomac… 1.82e5      9.39   5480     6.5         -999
+##  3 Artiod… Bovidae  Aepyc… melampus 4.15e4      6.35   5093     5.63       15900
+##  4 Artiod… Bovidae  Alcel… buselap… 1.5 e5      7.9   10167.    6.5         -999
+##  5 Artiod… Bovidae  Ammod… clarkei  2.85e4      6.8    -999  -999           -999
+##  6 Artiod… Bovidae  Ammot… lervia   5.55e4      5.08   3810     4           -999
+##  7 Artiod… Bovidae  Antid… marsupi… 3   e4      5.72   3910     4.04        -999
+##  8 Artiod… Bovidae  Antil… cervica… 3.75e4      5.5    3846     2.13        -999
+##  9 Artiod… Bovidae  Bison  bison    4.98e5      8.93  20000    10.7       157500
+## 10 Artiod… Bovidae  Bison  bonasus  5   e5      9.14  23000.    6.6         -999
+## # … with 1,430 more rows, and 4 more variables: AFR &lt;dbl&gt;, max. life &lt;dbl&gt;,
+## #   litter size &lt;dbl&gt;, litters/year &lt;dbl&gt;</code></pre>
+<pre class="r"><code>#mammals &lt;- clean_names(mammals)
+mammals</code></pre>
+<pre><code>## # A tibble: 1,440 × 13
+##    order   family   Genus  species    mass gestation newborn weaning `wean mass`
+##    &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;       &lt;dbl&gt;
+##  1 Artiod… Antiloc… Antil… america… 4.54e4      8.13   3246.    3           8900
+##  2 Artiod… Bovidae  Addax  nasomac… 1.82e5      9.39   5480     6.5         -999
+##  3 Artiod… Bovidae  Aepyc… melampus 4.15e4      6.35   5093     5.63       15900
+##  4 Artiod… Bovidae  Alcel… buselap… 1.5 e5      7.9   10167.    6.5         -999
+##  5 Artiod… Bovidae  Ammod… clarkei  2.85e4      6.8    -999  -999           -999
+##  6 Artiod… Bovidae  Ammot… lervia   5.55e4      5.08   3810     4           -999
+##  7 Artiod… Bovidae  Antid… marsupi… 3   e4      5.72   3910     4.04        -999
+##  8 Artiod… Bovidae  Antil… cervica… 3.75e4      5.5    3846     2.13        -999
+##  9 Artiod… Bovidae  Bison  bison    4.98e5      8.93  20000    10.7       157500
+## 10 Artiod… Bovidae  Bison  bonasus  5   e5      9.14  23000.    6.6         -999
+## # … with 1,430 more rows, and 4 more variables: AFR &lt;dbl&gt;, max. life &lt;dbl&gt;,
+## #   litter size &lt;dbl&gt;, litters/year &lt;dbl&gt;</code></pre>
 <p>To keep things tidy, I am going to rename the variables in the mammals data.</p>
-<pre class="r"><code>mammals &lt;- rename(mammals, genus=Genus, wean_mass=&quot;wean mass&quot;, max_life=&quot;max. life&quot;, litter_size=&quot;litter size&quot;, litters_per_year=&quot;litters/year&quot;)</code></pre>
+<pre class="r"><code>mammals &lt;- rename(mammals, genus=&quot;Genus&quot;, wean_mass=&quot;wean mass&quot;, max_life=&quot;max. life&quot;, litter_size=&quot;litter size&quot;, litters_per_year=&quot;litters/year&quot;)</code></pre>
 </div>
 <div id="filter" class="section level2">
 <h2><code>filter()</code></h2>
@@ -1582,6 +1615,9 @@ div.tocify {
 ##  9 AL         301 3            194            2.97        3.34
 ## 10 AL         301 2            194            2.29        3.34
 ## # … with 373 more rows</code></pre>
+<pre class="r"><code>#install.packages(&quot;janitor&quot;)
+#library(janitor)
+#tabyl(fish,lakeid)</code></pre>
 <p>Similarly, if we are only interested in fish with a length greater than or equal to 350 we can use <code>filter()</code> to extract these observations.</p>
 <pre class="r"><code>filter(fish, length &gt;= 350)</code></pre>
 <pre><code>## # A tibble: 890 × 6
@@ -1678,33 +1714,32 @@ div.tocify {
 <div id="practice" class="section level2">
 <h2>Practice</h2>
 <ol style="list-style-type: decimal">
-<li><p>Filter the <code>fish</code> data to include the samples from lake “BO”.</p></li>
-<li><p>Filter the data to include all lakes except “AR”.</p></li>
-<li><p>Filter the fish data to include all fish with a scalelength within 0.25 of 8.</p></li>
-<li><p>Filter the fish data to include fish with a scalelength between 2 and 4.</p></li>
+<li>Filter the <code>fish</code> data to include the samples from lake “BO”.</li>
 </ol>
-</div>
-<div id="using-filter-on-multiple-conditions" class="section level2">
-<h2>Using <code>filter()</code> on multiple conditions</h2>
-<p>You can also use <code>filter()</code> to extract data based on multiple conditions. Below we extract only the fish that have lakeid “AL” and length &gt;350.</p>
-<pre class="r"><code>filter(fish, lakeid == &quot;AL&quot; &amp; length &gt; 350)</code></pre>
-<pre><code>## # A tibble: 314 × 6
+<pre class="r"><code>filter(fish,lakeid==&quot;BO&quot;)</code></pre>
+<pre><code>## # A tibble: 197 × 6
 ##    lakeid fish_id annnumber length radii_length_mm scalelength
 ##    &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;
-##  1 AL         307 EDGE         353            7.55        7.55
-##  2 AL         307 13           353            7.28        7.55
-##  3 AL         307 12           353            6.98        7.55
-##  4 AL         307 11           353            6.73        7.55
-##  5 AL         307 10           353            6.48        7.55
-##  6 AL         307 9            353            6.22        7.55
-##  7 AL         307 8            353            5.92        7.55
-##  8 AL         307 7            353            5.44        7.55
-##  9 AL         307 6            353            5.06        7.55
-## 10 AL         307 5            353            4.37        7.55
-## # … with 304 more rows</code></pre>
-<p>Notice that the <code>|</code> operator generates a different result.</p>
-<pre class="r"><code>filter(fish, lakeid == &quot;AL&quot; | length &gt; 350)</code></pre>
-<pre><code>## # A tibble: 948 × 6
+##  1 BO         389 EDGE         104           1.50         1.50
+##  2 BO         389 1            104           0.736        1.50
+##  3 BO         390 EDGE         105           1.59         1.59
+##  4 BO         390 1            105           0.698        1.59
+##  5 BO         391 EDGE         107           1.43         1.43
+##  6 BO         391 1            107           0.695        1.43
+##  7 BO         392 EDGE         124           2.11         2.11
+##  8 BO         392 2            124           1.36         2.11
+##  9 BO         392 1            124           0.792        2.11
+## 10 BO         393 EDGE         141           2.16         2.16
+## # … with 187 more rows</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Filter the data to include all lakes except “AR”.</li>
+</ol>
+<pre class="r"><code>table(fish$lakeid)</code></pre>
+<pre><code>## 
+##  AL  AR  BO  BR  CR  DY  FD  JN  LC  LJ  LR LSG  MN  RD  UB  WS 
+## 383 262 197 291 343 355 302 238 173 181 292 143 293 135 191 254</code></pre>
+<pre class="r"><code>filter(fish,lakeid !=&quot;AR&quot;)</code></pre>
+<pre><code>## # A tibble: 3,771 × 6
 ##    lakeid fish_id annnumber length radii_length_mm scalelength
 ##    &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;
 ##  1 AL         299 EDGE         167            2.70        2.70
@@ -1717,7 +1752,78 @@ div.tocify {
 ##  8 AL         301 EDGE         194            3.34        3.34
 ##  9 AL         301 3            194            2.97        3.34
 ## 10 AL         301 2            194            2.29        3.34
-## # … with 938 more rows</code></pre>
+## # … with 3,761 more rows</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Filter the fish data to include all fish with a scalelength within 0.25 of 8.</li>
+</ol>
+<pre class="r"><code>filter(fish ,near(scalelength, 8, tol=0.25))</code></pre>
+<pre><code>## # A tibble: 236 × 6
+##    lakeid fish_id annnumber length radii_length_mm scalelength
+##    &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;
+##  1 AL         309 EDGE         355            7.89        7.89
+##  2 AL         309 13           355            7.56        7.89
+##  3 AL         309 12           355            7.36        7.89
+##  4 AL         309 11           355            7.16        7.89
+##  5 AL         309 10           355            6.77        7.89
+##  6 AL         309 9            355            6.39        7.89
+##  7 AL         309 8            355            5.96        7.89
+##  8 AL         309 7            355            5.44        7.89
+##  9 AL         309 6            355            4.74        7.89
+## 10 AL         309 5            355            4.06        7.89
+## # … with 226 more rows</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Filter the fish data to include fish with a scalelength between 2 and 4.</li>
+</ol>
+<pre class="r"><code>filter(fish, between(scalelength,2,4))</code></pre>
+<pre><code>## # A tibble: 723 × 6
+##    lakeid fish_id annnumber length radii_length_mm scalelength
+##    &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;
+##  1 AL         299 EDGE         167            2.70        2.70
+##  2 AL         299 2            167            2.04        2.70
+##  3 AL         299 1            167            1.31        2.70
+##  4 AL         300 EDGE         175            3.02        3.02
+##  5 AL         300 3            175            2.67        3.02
+##  6 AL         300 2            175            2.14        3.02
+##  7 AL         300 1            175            1.23        3.02
+##  8 AL         301 EDGE         194            3.34        3.34
+##  9 AL         301 3            194            2.97        3.34
+## 10 AL         301 2            194            2.29        3.34
+## # … with 713 more rows</code></pre>
+</div>
+<div id="using-filter-on-multiple-conditions" class="section level2">
+<h2>Using <code>filter()</code> on multiple conditions</h2>
+<p>You can also use <code>filter()</code> to extract data based on multiple conditions. Below we extract only the fish that have lakeid “AL” and length &gt;350.</p>
+<pre class="r"><code>filter(fish, lakeid == &quot;AL&quot; &amp; length == 350)</code></pre>
+<pre><code>## # A tibble: 11 × 6
+##    lakeid fish_id annnumber length radii_length_mm scalelength
+##    &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;
+##  1 AL         306 EDGE         350            6.94        6.94
+##  2 AL         306 10           350            6.46        6.94
+##  3 AL         306 9            350            6.16        6.94
+##  4 AL         306 8            350            5.88        6.94
+##  5 AL         306 7            350            5.42        6.94
+##  6 AL         306 6            350            4.90        6.94
+##  7 AL         306 5            350            4.46        6.94
+##  8 AL         306 4            350            3.75        6.94
+##  9 AL         306 3            350            2.93        6.94
+## 10 AL         306 2            350            2.14        6.94
+## 11 AL         306 1            350            1.19        6.94</code></pre>
+<p>Notice that the <code>|</code> operator generates a different result.</p>
+<pre class="r"><code>filter(fish, lakeid == &quot;AL&quot; | length == 350)</code></pre>
+<pre><code>## # A tibble: 383 × 6
+##    lakeid fish_id annnumber length radii_length_mm scalelength
+##    &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;
+##  1 AL         299 EDGE         167            2.70        2.70
+##  2 AL         299 2            167            2.04        2.70
+##  3 AL         299 1            167            1.31        2.70
+##  4 AL         300 EDGE         175            3.02        3.02
+##  5 AL         300 3            175            2.67        3.02
+##  6 AL         300 2            175            2.14        3.02
+##  7 AL         300 1            175            1.23        3.02
+##  8 AL         301 EDGE         194            3.34        3.34
+##  9 AL         301 3            194            2.97        3.34
+## 10 AL         301 2            194            2.29        3.34
+## # … with 373 more rows</code></pre>
 <p>Rules:<br />
 + <code>filter(condition1, condition2)</code> will return rows where both conditions are met.<br />
 + <code>filter(condition1, !condition2)</code> will return all rows where condition one is true but condition 2 is not.<br />

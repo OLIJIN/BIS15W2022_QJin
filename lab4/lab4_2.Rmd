@@ -34,7 +34,7 @@ mammals <- readr::read_csv("data/mammal_lifehistories_v2.csv")
 mammals
 ```
 ```{r}
-mammals <- clean_names(mammals)
+#mammals <- clean_names(mammals)
 mammals
 ```
 
@@ -49,9 +49,9 @@ Unlike `select()`, `filter()` allows us to extract data that meet specific crite
 filter(fish, lakeid == "AL")
 ```
 ```{r}
-install.packages("janitor")
-library(janitor)
-tabyl(fish,lakeid)
+#install.packages("janitor")
+#library(janitor)
+#tabyl(fish,lakeid)
 ```
 
 Similarly, if we are only interested in fish with a length greater than or equal to 350 we can use `filter()` to extract these observations.  
