@@ -31,7 +31,7 @@ Wikipedia's definition of [data science](https://en.wikipedia.org/wiki/Data_scie
 
 1. (2 points) Consider the definition of data science above. Although we are only part-way through the quarter, what specific elements of data science do you feel we have practiced? Provide at least one specific example.
 
-**I think so far we have practiced the use of R studio's algorithms to rearrange as well as extract knowledge of interest, for example we could filter data with the 'filter()' function, which is used to subset rows using column values, extract rows which satisfy selected conditions. Then using functions such as 'mean()' or 'summary()' we could get other useful information from the selected datasets. **
+**I think so far we have practiced the use of R studio's algorithms to rearrange as well as extract knowledge of interest, for example we could filter data with the 'filter()' function, which is used to subset rows using column values, extract rows which satisfy selected conditions. Then using functions such as 'mean()' or 'summary()' we could get other useful information from the selected datasets.**
 
 2. (2 points) What is the most helpful or interesting thing you have learned so far in BIS 15L? What is something that you think needs more work or practice?  
 
@@ -134,7 +134,7 @@ mean(moderatehunt$Diversity_MammalSpecies)
 
 11. (4 points) One of the conclusions in the study is that the relative abundance of animals drops off the closer you get to a village. Let's try to reconstruct this (without the statistics). How does the relative abundance (RA) of apes, birds, elephants, monkeys, rodents, and ungulates compare between sites that are less than 3km from a village to sites that are greater than 25km from a village? The variable `Distance` measures the distance of the transect from the nearest village. Hint: try using the `across` operator.  
 
-**The results show that the relative abundance of apes, monkeys, and ungulate drops at sites less than 3km from village. The reative abundance of birds, elephant, and rodent is greater at sites less than 3km from village. **
+**The results show that the relative abundance of apes, monkeys, and ungulate drops at sites less than 3km from village. The reative abundance of birds, elephant, and rodent is greater at sites less than 3km from village.**
 ```{r}
 distancelessthan3 <- filter(vertebrate,Distance<3)
 distancelessthan3 %>%
@@ -149,7 +149,7 @@ distanceover25 %>%
 
 12. (4 points) Based on your interest, do one exploratory analysis on the `gabon` data of your choice. This analysis needs to include a minimum of two functions in `dplyr.`
 
-**For this part, I tried to confirm if the richness of tree species varies based on the site distance to villages, and the relative abundance of apes and rodent. After extracting the average richness, average ape relative abundance, and average rodent relative abundance at distance over 15km and below 5km from villages. We observed that ,comparing with distance under 5km, the mean tree species richness is slightly higher with distance over 15km, and the corresponding relative abundance of apes is higher, with the relative abundance of rodent being lower. **
+**For this part, I tried to confirm if the richness of tree species varies based on the site distance to villages, and the relative abundance of apes and rodent. After extracting the average richness, average ape relative abundance, and average rodent relative abundance at distance over 15km and below 5km from villages. We observed that ,comparing with distance under 5km, the mean tree species richness is slightly higher with distance over 15km, and the corresponding relative abundance of apes is higher, with the relative abundance of rodent being lower.**
 
 **In the article, we learned that apes as medium/large seed dispensers and rodent as seed predators, the relative abundance of each species also affect the abundance of tree species. It could be explained in the article as "The reduction of dispersal services and increase in seed predation could impede plant recruitment of primate-dispersed species, opening space for different plant species (Poulsen et al. 2002; Brodie et al. 2009)". Here with the extracted data below, it helped me to explore this phenomenon further.**
 ```{r}
