@@ -31,7 +31,7 @@ library("janitor")
 
 ## Install `skimr`
 ```{r}
-#install.packages("skimr")
+install.packages("skimr")
 library("skimr")
 ```
 
@@ -75,6 +75,7 @@ hist(msleep24$sleep_total_24)
 
 Don't forget we can also use `tabyl()` across one or many variables.
 ```{r}
+?tabyl
 msleep24 %>% 
   tabyl(vore) %>% 
   adorn_pct_formatting(digits=1)
@@ -83,12 +84,13 @@ msleep24 %>%
 ## Practice
 1. Which taxonomic orders have species that belong to more than one class of `vore`?
 ```{r}
-
+filter(msleep, vore=='omni')
 ```
 
 ## `summarize()`
 `summarize()` will produce summary statistics for a given variable in a data frame. For example, if you are asked to calculate the mean of `sleep_total` for large and small mammals you could do this using a combination of commands, but it isn't very efficient or clean. We can do better!  
 ```{r}
+?summarize
 head(msleep)
 ```
 
@@ -131,7 +133,7 @@ msleep %>%
 
 `n_distinct()` is a very handy way of cleanly presenting the number of distinct observations. Here we show the number of distinct genera over 100 in body weight.
 ```{r}
-msleep %>% 
+msleep %>% c
   filter(bodywt > 100) %>% 
   summarise(n_genera=n_distinct(genus))
 ```

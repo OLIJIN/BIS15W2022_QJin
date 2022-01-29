@@ -136,6 +136,8 @@ names(penguins)
 
 By using `across()` we can reduce the clutter and make things cleaner. 
 ```{r}
+penguins
+?n_distinct
 penguins %>%
   summarize(across(c(species, island, sex), n_distinct))
 ```

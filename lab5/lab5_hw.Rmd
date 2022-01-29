@@ -12,6 +12,7 @@ output:
 ## Load the tidyverse
 ```{r}
 library("tidyverse")
+?filter
 ```
 
 ## Load the superhero data
