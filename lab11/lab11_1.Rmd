@@ -31,7 +31,7 @@ Please make sure that you have 1-2 data sets to share with your group member dur
 `RColorBrewer` and `paletteer` are helpful in selecting palettes of color that work with your data. Please install these now, we will work with them in part 2 of today's lab.
 ```{r, eval=FALSE, echo=TRUE}
 #install.packages("RColorBrewer")
-#install.packages("paletteer")
+install.packages("paletteer")
 #install.packages("ggthemes")
 ```
 

@@ -77,7 +77,7 @@ p+theme_linedraw()+
 
 ## Not enough? [ggthemes](https://yutannihilation.github.io/allYourFigureAreBelongToUs/)
 ```{r}
-#install.packages("ggthemes")
+install.packages("ggthemes")
 library(ggthemes)
 ```
 
@@ -182,7 +182,7 @@ Here we import the data and clean the names. Because these data have a header, t
 ecosphere <- read_csv("data/ecs21351-sup-0003-SupplementS1.csv", skip=2, col_names = T) %>% 
   clean_names() %>% 
   separate(scientific_name, into = c("genus", "species"), sep=" ") %>% 
-  na.omit()
+  na.omit() #remove NA's for now
 ```
 
 What if we were interested in a comparison of diet and mass, i.e. how does the range of masses compare by different diet types?  
