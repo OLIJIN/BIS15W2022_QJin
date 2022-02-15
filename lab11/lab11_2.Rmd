@@ -248,14 +248,22 @@ ecosphere %>%
 ```
 
 ## Practice
-1. Build a faceted plot that shows a distribution of life expectancy by habitat type.
+1. Build a faceted plot that shows a distribution of mean eggs per clutch by habitat type.
 ```{r}
-
+ecosphere %>% 
+  ggplot(aes(x=mean_eggs_per_clutch))+ 
+  geom_density()+
+  facet_wrap(.~habitat)+
+  theme(axis.text.x = element_text(angle = 60, hjust = 1))
 ```
 
 2. Try the same plot as #1 above, but include life_expectancy~habitat.
 ```{r}
-
+ecosphere %>% 
+  ggplot(aes(x=mean_eggs_per_clutch))+ 
+  geom_density()+
+  facet_grid(life_expectancy~habitat,scales="free")+
+  theme(axis.text.x = element_text(angle = 60, hjust = 1))
 ```
 
 ## That's it, let's take a break!   
