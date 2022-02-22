@@ -2272,7 +2272,8 @@ gapminder_join %>%
 ```
 
 ![](midterm_2_files/figure-html/unnamed-chunk-26-1.png)<!-- -->
-Looking at the above three graphs, we can observe that GDP per person in the US is in constant growing trend since the 1930s, whereas the curve of China started to show significant up-trend starting in the 1990s. Similarly, the life expectancy curve of the US showing less oscillation comparing to China, especially during the 1940s, and 1960s period. Comparing both countries' population growth curves, we can see even both countries are experiencing positive growth, but the Chinese population are growing exponentially since the 1950s. Looking at both countries, across these three aspects, US have more steady and predictable curves than China, and the growth curves of China, might need more years to reflect the country's true economy. 
+
+*Looking at the above three graphs, we can observe that GDP per person in the US is in constant growing trend since the 1930s, whereas the curve of China started to show significant up-trend starting in the 1990s. Similarly, the life expectancy curve of the US showing less oscillation comparing to China, especially during the 1940s, and 1960s period. Comparing both countries' population growth curves, we can see even both countries are experiencing positive growth, but the Chinese population are growing exponentially since the 1950s. Looking at both countries, across these three aspects, US have more steady and predictable curves than China, and the growth curves of China, might need more years to reflect the country's true economy.*
 
 
 
