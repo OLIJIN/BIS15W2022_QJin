@@ -3,7 +3,7 @@ title: "Lab 14 HW"
 output: 
   html_document: 
     keep_md: yes
-author: "your name here"
+author: "Qianyu Jin"
 date: '2022-02-28'
 ---
 
@@ -19,7 +19,7 @@ library(ggVennDiagram)
 library(RColorBrewer)
 
 #install.packages("ggworldcloud")
-library(ggwordcloud)
+library("ggwordcloud")
 
 
 options(scipen=999) #cancels the use of scientific notation for the session
@@ -38,20 +38,40 @@ beachbugs_long <- readr::read_csv("data/beachbugs_long.csv")
 Clean up the column names (no capitals, not spaces) of `superhero_info`, then use 2 functions to remind yourself of structure of the `superhero_info` data set.
 
 ```{r}
-
+superhero_info <- clean_names(superhero_info)
+```
+```{r}
+glimpse(superhero_info)
+```
+```{r}
+summary(superhero_info)
+```
+```{r}
+names(superhero_info)
 ```
 
 ### 2.
 Are bad guys bigger? Make box-plots of weight by `alignment` (alignment on the x-axis).
 ```{r}
-
+superhero_info %>% 
+  filter(alignment != "NA") %>% 
+  ggplot(aes(x = alignment, y = weight, fill = alignment))+
+  geom_boxplot()+
+  labs(x="Alignment",
+       y="Weight")
 ```
 
 ### 3. 
 Now, make a violin plot of weight by `alignment` (alignment on the x-axis). Add some color!
   What information can you observe in the violin plot that was not visible in the boxplot?
 ```{r}
-
+superhero_info %>% 
+  filter(alignment != "NA") %>% 
+  ggplot(aes(x = alignment, y = weight, fill = alignment))+
+  geom_violin()+
+  scale_fill_brewer(palette = "Accent")+
+  labs(x="Alignment",
+       y="Weight")
 ```
 
 
@@ -59,7 +79,14 @@ Now, make a violin plot of weight by `alignment` (alignment on the x-axis). Add 
 ### 4. 
 Use `alpha = .5` in `geom_boxplot()` and `geom_violin()` to layer both plots on top of one another. What does this tell you about the distribution of weight in "`bad`" guys?
 ```{r}
-
+superhero_info %>% 
+  filter(alignment != "NA") %>% 
+  ggplot(aes(x = alignment, y = weight, fill = alignment))+
+  geom_violin(alpha=0.5, na.rm = TRUE)+
+  geom_boxplot(color = "grey", alpha=0.5, na.rm = TRUE)+
+  scale_fill_brewer(palette = "Accent")+
+  labs(x="Alignment",
+       y="Weight")
 ```
 
 ### 5. 
@@ -69,7 +96,16 @@ Box plots are great for showing how the distribution of a numeric variable (e.g.
   What is your categorical variable?
 
 ```{r}
-
+superhero_info %>% 
+  filter(gender!="NA") %>% 
+  ggplot(aes(x=gender, y=weight, fill=gender))+
+  geom_boxplot(color="grey", alpha=0.5, na.rm = TRUE)+
+  geom_violin(alpha=0.5, na.rm = TRUE)+
+  scale_fill_brewer(palette = "Accent")+
+  theme(plot.title = element_text(size = rel(1), face='bold', hjust = 0.5)) +
+  labs(title = "Superhero Gender and Weight",
+       x="Gender",
+       y="Weight")
 ```
 
 ### 6. 
@@ -78,11 +114,19 @@ color it with `scale_fill_gradient(low="yellow", high="red")` or colors of your 
 (dont forget, `coord_flip()` is a quick way to improve the look of your plot if you dont like the default orientation)
 
 ```{r}
-
+head(beachbugs_long)
 ```
 
 ```{r}
-
+beachbugs_long %>% 
+  ggplot(aes(x=site, y=year, fill=buglevels))+
+  geom_tile()+
+  scale_fill_gradient(low="yellow", high="red")+
+  theme(axis.text.x = element_text(angle = 60, hjust = 1))+
+  theme(plot.title = element_text(size = rel(1), face='bold', hjust = 0.5)) +
+  labs( title = "Heatmap of Buglevels",
+        x = NULL,
+        y = NULL)
 ```
 
 ### 7.  
@@ -107,7 +151,15 @@ beachbugs_normalized
 ```
  
 ```{r}
-
+beachbugs_normalized %>% 
+  ggplot(aes(x=site, y=year, fill=norm_buglevel))+
+  geom_tile()+
+  scale_fill_gradient(low="yellow", high="red")+
+  theme(axis.text.x = element_text(angle = 60, hjust = 1))+
+  theme(plot.title = element_text(size = rel(1), face='bold', hjust = 0.5)) +
+  labs( title = "Heatmap of Buglevels",
+        x = NULL,
+        y = NULL)
 ```
 
 ### 8.
@@ -121,25 +173,30 @@ Start by making the 4 vectors, then the list of vectors. The vector for alignmen
 ### super heros venn
 ```{r}
 # evil
-
-#evil_vec <- superhero_info %>%
-#  filter(alignment == "bad")%>%
-#  pull(name)
+evil_vec <- superhero_info %>%
+  filter(alignment == "bad")%>%
+  pull(name)
 
 # red eyes
-
+redeyes_vec <- superhero_info %>% 
+  filter(eye_color == "red") %>% 
+  pull(name)
 
 # male
-
+male_vec <- superhero_info %>% 
+  filter(gender == "Male") %>% 
+  pull(name)
 
 # bald
-
+bald_vec <- superhero_info %>% 
+  filter(hair_color == "No Hair") %>% 
+  pull(name)
 
 ```
 
 Your list of vectors will look something like this:
 ```{r}
-# questions_list <- list(evil_vec, red_eye_vec, male_vec, bald_vec)
+evilbaldmale_withredeye_list <- list(evil_vec, redeyes_vec, male_vec, bald_vec)
 
 ```
 
@@ -148,8 +205,7 @@ Let's make the venn diagram! use the code from lab as a reference.
 ```{r}
 # something like:
 # ggVennDiagram( list, category.names = c("name", "name", "name", "name"))
-
-
+ggVennDiagram(evilbaldmale_withredeye_list, category.names = c("Evil", "Red Eyes", "Male", "Bald"))
 
 ```
 
@@ -157,14 +213,30 @@ Let's make the venn diagram! use the code from lab as a reference.
 ### 10. Choose one intersection of the venn diagram that is interesting to you. Use dplyr to find the names of the superheros in that intersection. 
 
 ```{r}
-
+superhero_info %>% 
+  filter(gender == "Male" & hair_color == "No Hair" & eye_color =="blue" & alignment =="good") %>% 
+  pull(name)
 ```
 
 
 
 ### 11. Make another venn diagram with the `superhero_info` data. What are your questions? ( At least 2!) 
 ```{r}
+yelloweyes_vec <- superhero_info %>% 
+  filter(eye_color == "yellow") %>% 
+  pull(name)
 
+blondhair_vec <- superhero_info %>% 
+  filter(hair_color == "blond") %>% 
+  pull(name)
+
+female_vec <- superhero_info %>% 
+  filter(gender == "Female") %>% 
+  pull(name)
+```
+```{r}
+blond_female_with_yelloweyes_list <- list(yelloweyes_vec, blondhair_vec, female_vec)
+ggVennDiagram(blond_female_with_yelloweyes_list, category.names = c("Yellow Eyes", "Blond", "Female"))
 ```
 
 
@@ -188,7 +260,11 @@ power_frequency
 
 
 ```{r}
-
+power_frequency %>% 
+ggplot(aes(label = power, size = freq, color = power)) +
+  geom_text_wordcloud() +
+  scale_size_area(max_size = 5) +
+  theme_minimal()
 
 
 ```
@@ -219,7 +295,11 @@ power_quantity
 
 
 ```{r}
-
+power_quantity %>% 
+ggplot(aes(label = hero_names, size = sum_powers, color = hero_names)) +
+  geom_text_wordcloud() +
+  scale_size_area(max_size = 5) +
+  theme_minimal()
 
 ```
 

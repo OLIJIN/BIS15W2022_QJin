@@ -3,7 +3,7 @@ title: "Lab 14 HW"
 output: 
   html_document: 
     keep_md: yes
-author: "your name here"
+author: "Qianyu Jin"
 date: '2022-02-28'
 ---
 
@@ -12,6 +12,10 @@ date: '2022-02-28'
 
 ```r
 library(tidyverse)
+```
+
+```
+## Warning: package 'tidyverse' was built under R version 4.0.2
 ```
 
 ```
@@ -26,6 +30,30 @@ library(tidyverse)
 ```
 
 ```
+## Warning: package 'ggplot2' was built under R version 4.0.2
+```
+
+```
+## Warning: package 'tibble' was built under R version 4.0.2
+```
+
+```
+## Warning: package 'tidyr' was built under R version 4.0.5
+```
+
+```
+## Warning: package 'readr' was built under R version 4.0.5
+```
+
+```
+## Warning: package 'dplyr' was built under R version 4.0.5
+```
+
+```
+## Warning: package 'forcats' was built under R version 4.0.2
+```
+
+```
 ## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ## x dplyr::filter() masks stats::filter()
 ## x dplyr::lag()    masks stats::lag()
@@ -33,6 +61,10 @@ library(tidyverse)
 
 ```r
 library(janitor)
+```
+
+```
+## Warning: package 'janitor' was built under R version 4.0.2
 ```
 
 ```
@@ -48,15 +80,39 @@ library(janitor)
 
 ```r
 library("palmerpenguins")
+```
 
+```
+## Warning: package 'palmerpenguins' was built under R version 4.0.2
+```
+
+```r
 #install.packages("ggVennDiagram")
 library(ggVennDiagram)
+```
+
+```
+## Warning: package 'ggVennDiagram' was built under R version 4.0.2
+```
+
+```r
 library(RColorBrewer)
+```
 
+```
+## Warning: package 'RColorBrewer' was built under R version 4.0.2
+```
+
+```r
 #install.packages("ggworldcloud")
-library(ggwordcloud)
+library("ggwordcloud")
+```
 
+```
+## Warning: package 'ggwordcloud' was built under R version 4.0.2
+```
 
+```r
 options(scipen=999) #cancels the use of scientific notation for the session
 ```
 
@@ -112,21 +168,124 @@ beachbugs_long <- readr::read_csv("data/beachbugs_long.csv")
 Clean up the column names (no capitals, not spaces) of `superhero_info`, then use 2 functions to remind yourself of structure of the `superhero_info` data set.
 
 
+```r
+superhero_info <- clean_names(superhero_info)
+```
+
+```r
+glimpse(superhero_info)
+```
+
+```
+## Rows: 734
+## Columns: 10
+## $ name       <chr> "A-Bomb", "Abe Sapien", "Abin Sur", "Abomination", "Abraxas…
+## $ gender     <chr> "Male", "Male", "Male", "Male", "Male", "Male", "Male", "Ma…
+## $ eye_color  <chr> "yellow", "blue", "blue", "green", "blue", "blue", "blue", …
+## $ race       <chr> "Human", "Icthyo Sapien", "Ungaran", "Human / Radiation", "…
+## $ hair_color <chr> "No Hair", "No Hair", "No Hair", "No Hair", "Black", "No Ha…
+## $ height     <dbl> 203, 191, 185, 203, NA, 193, NA, 185, 173, 178, 191, 188, 1…
+## $ publisher  <chr> "Marvel Comics", "Dark Horse Comics", "DC Comics", "Marvel …
+## $ skin_color <chr> NA, "blue", "red", NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+## $ alignment  <chr> "good", "good", "good", "bad", "bad", "bad", "good", "good"…
+## $ weight     <dbl> 441, 65, 90, 441, NA, 122, NA, 88, 61, 81, 104, 108, 90, 90…
+```
+
+```r
+summary(superhero_info)
+```
+
+```
+##      name              gender           eye_color             race          
+##  Length:734         Length:734         Length:734         Length:734        
+##  Class :character   Class :character   Class :character   Class :character  
+##  Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+##                                                                             
+##                                                                             
+##                                                                             
+##                                                                             
+##   hair_color            height       publisher          skin_color       
+##  Length:734         Min.   : 15.2   Length:734         Length:734        
+##  Class :character   1st Qu.:173.0   Class :character   Class :character  
+##  Mode  :character   Median :183.0   Mode  :character   Mode  :character  
+##                     Mean   :186.7                                        
+##                     3rd Qu.:191.0                                        
+##                     Max.   :975.0                                        
+##                     NA's   :217                                          
+##   alignment             weight     
+##  Length:734         Min.   :  2.0  
+##  Class :character   1st Qu.: 61.0  
+##  Mode  :character   Median : 81.0  
+##                     Mean   :112.3  
+##                     3rd Qu.:108.0  
+##                     Max.   :900.0  
+##                     NA's   :239
+```
+
+```r
+names(superhero_info)
+```
+
+```
+##  [1] "name"       "gender"     "eye_color"  "race"       "hair_color"
+##  [6] "height"     "publisher"  "skin_color" "alignment"  "weight"
+```
 
 ### 2.
 Are bad guys bigger? Make box-plots of weight by `alignment` (alignment on the x-axis).
 
+```r
+superhero_info %>% 
+  filter(alignment != "NA") %>% 
+  ggplot(aes(x = alignment, y = weight, fill = alignment))+
+  geom_boxplot()+
+  labs(x="Alignment",
+       y="Weight")
+```
+
+```
+## Warning: Removed 235 rows containing non-finite values (stat_boxplot).
+```
+
+![](lab14_hw_files/figure-html/unnamed-chunk-7-1.png)<!-- -->
 
 ### 3. 
 Now, make a violin plot of weight by `alignment` (alignment on the x-axis). Add some color!
   What information can you observe in the violin plot that was not visible in the boxplot?
 
+```r
+superhero_info %>% 
+  filter(alignment != "NA") %>% 
+  ggplot(aes(x = alignment, y = weight, fill = alignment))+
+  geom_violin()+
+  scale_fill_brewer(palette = "Accent")+
+  labs(x="Alignment",
+       y="Weight")
+```
+
+```
+## Warning: Removed 235 rows containing non-finite values (stat_ydensity).
+```
+
+![](lab14_hw_files/figure-html/unnamed-chunk-8-1.png)<!-- -->
 
 
 
 ### 4. 
 Use `alpha = .5` in `geom_boxplot()` and `geom_violin()` to layer both plots on top of one another. What does this tell you about the distribution of weight in "`bad`" guys?
 
+```r
+superhero_info %>% 
+  filter(alignment != "NA") %>% 
+  ggplot(aes(x = alignment, y = weight, fill = alignment))+
+  geom_violin(alpha=0.5, na.rm = TRUE)+
+  geom_boxplot(color = "grey", alpha=0.5, na.rm = TRUE)+
+  scale_fill_brewer(palette = "Accent")+
+  labs(x="Alignment",
+       y="Weight")
+```
+
+![](lab14_hw_files/figure-html/unnamed-chunk-9-1.png)<!-- -->
 
 ### 5. 
 Box plots are great for showing how the distribution of a numeric variable (e.g. weight) varies among a categorical variable (e.g. alignment).
@@ -135,6 +294,20 @@ Box plots are great for showing how the distribution of a numeric variable (e.g.
   What is your categorical variable?
 
 
+```r
+superhero_info %>% 
+  filter(gender!="NA") %>% 
+  ggplot(aes(x=gender, y=weight, fill=gender))+
+  geom_boxplot(color="grey", alpha=0.5, na.rm = TRUE)+
+  geom_violin(alpha=0.5, na.rm = TRUE)+
+  scale_fill_brewer(palette = "Accent")+
+  theme(plot.title = element_text(size = rel(1), face='bold', hjust = 0.5)) +
+  labs(title = "Superhero Gender and Weight",
+       x="Gender",
+       y="Weight")
+```
+
+![](lab14_hw_files/figure-html/unnamed-chunk-10-1.png)<!-- -->
 
 ### 6. 
 Remind yourself what `beachbugs` looks like. Then generate a heatmap of buglevels by site and year. 
@@ -142,8 +315,36 @@ color it with `scale_fill_gradient(low="yellow", high="red")` or colors of your 
 (dont forget, `coord_flip()` is a quick way to improve the look of your plot if you dont like the default orientation)
 
 
+```r
+head(beachbugs_long)
+```
+
+```
+## # A tibble: 6 × 3
+##    year site               buglevels
+##   <dbl> <chr>                  <dbl>
+## 1  2013 Bondi Beach            32.2 
+## 2  2013 Bronte Beach           26.8 
+## 3  2013 Clovelly Beach          9.28
+## 4  2013 Coogee Beach           39.7 
+## 5  2013 Gordons Bay (East)     24.8 
+## 6  2013 Little Bay Beach      122.
+```
 
 
+```r
+beachbugs_long %>% 
+  ggplot(aes(x=site, y=year, fill=buglevels))+
+  geom_tile()+
+  scale_fill_gradient(low="yellow", high="red")+
+  theme(axis.text.x = element_text(angle = 60, hjust = 1))+
+  theme(plot.title = element_text(size = rel(1), face='bold', hjust = 0.5)) +
+  labs( title = "Heatmap of Buglevels",
+        x = NULL,
+        y = NULL)
+```
+
+![](lab14_hw_files/figure-html/unnamed-chunk-12-1.png)<!-- -->
 
 ### 7.  
 Use the provided code to normalize the beachbug data set. 
@@ -206,6 +407,19 @@ beachbugs_normalized
 ```
  
 
+```r
+beachbugs_normalized %>% 
+  ggplot(aes(x=site, y=year, fill=norm_buglevel))+
+  geom_tile()+
+  scale_fill_gradient(low="yellow", high="red")+
+  theme(axis.text.x = element_text(angle = 60, hjust = 1))+
+  theme(plot.title = element_text(size = rel(1), face='bold', hjust = 0.5)) +
+  labs( title = "Heatmap of Buglevels",
+        x = NULL,
+        y = NULL)
+```
+
+![](lab14_hw_files/figure-html/unnamed-chunk-14-1.png)<!-- -->
 
 ### 8.
 Let's make a venn diagram of `superhero_info`, from 4 questions:
@@ -219,24 +433,30 @@ Start by making the 4 vectors, then the list of vectors. The vector for alignmen
 
 ```r
 # evil
-
-#evil_vec <- superhero_info %>%
-#  filter(alignment == "bad")%>%
-#  pull(name)
+evil_vec <- superhero_info %>%
+  filter(alignment == "bad")%>%
+  pull(name)
 
 # red eyes
-
+redeyes_vec <- superhero_info %>% 
+  filter(eye_color == "red") %>% 
+  pull(name)
 
 # male
-
+male_vec <- superhero_info %>% 
+  filter(gender == "Male") %>% 
+  pull(name)
 
 # bald
+bald_vec <- superhero_info %>% 
+  filter(hair_color == "No Hair") %>% 
+  pull(name)
 ```
 
 Your list of vectors will look something like this:
 
 ```r
-# questions_list <- list(evil_vec, red_eye_vec, male_vec, bald_vec)
+evilbaldmale_withredeye_list <- list(evil_vec, redeyes_vec, male_vec, bald_vec)
 ```
 
 ### 9. 
@@ -245,17 +465,50 @@ Let's make the venn diagram! use the code from lab as a reference.
 ```r
 # something like:
 # ggVennDiagram( list, category.names = c("name", "name", "name", "name"))
+ggVennDiagram(evilbaldmale_withredeye_list, category.names = c("Evil", "Red Eyes", "Male", "Bald"))
 ```
+
+![](lab14_hw_files/figure-html/unnamed-chunk-17-1.png)<!-- -->
 
 
 ### 10. Choose one intersection of the venn diagram that is interesting to you. Use dplyr to find the names of the superheros in that intersection. 
 
 
+```r
+superhero_info %>% 
+  filter(gender == "Male" & hair_color == "No Hair" & eye_color =="blue" & alignment =="good") %>% 
+  pull(name)
+```
+
+```
+## [1] "Abe Sapien"  "Abin Sur"    "Ink"         "Leonardo"    "Professor X"
+## [6] "Thing"
+```
 
 
 
 ### 11. Make another venn diagram with the `superhero_info` data. What are your questions? ( At least 2!) 
 
+```r
+yelloweyes_vec <- superhero_info %>% 
+  filter(eye_color == "yellow") %>% 
+  pull(name)
+
+blondhair_vec <- superhero_info %>% 
+  filter(hair_color == "blond") %>% 
+  pull(name)
+
+female_vec <- superhero_info %>% 
+  filter(gender == "Female") %>% 
+  pull(name)
+```
+
+```r
+blond_female_with_yelloweyes_list <- list(yelloweyes_vec, blondhair_vec, female_vec)
+ggVennDiagram(blond_female_with_yelloweyes_list, category.names = c("Yellow Eyes", "Blond", "Female"))
+```
+
+![](lab14_hw_files/figure-html/unnamed-chunk-20-1.png)<!-- -->
 
 
 
@@ -316,6 +569,15 @@ power_frequency
 
 
 
+```r
+power_frequency %>% 
+ggplot(aes(label = power, size = freq, color = power)) +
+  geom_text_wordcloud() +
+  scale_size_area(max_size = 5) +
+  theme_minimal()
+```
+
+![](lab14_hw_files/figure-html/unnamed-chunk-23-1.png)<!-- -->
 ### 13.  
 Who are some very powerful supers? 
  Lets make a different word cloud with the `superhero_powers` data. 
@@ -379,6 +641,15 @@ power_quantity
 
 
 
+```r
+power_quantity %>% 
+ggplot(aes(label = hero_names, size = sum_powers, color = hero_names)) +
+  geom_text_wordcloud() +
+  scale_size_area(max_size = 5) +
+  theme_minimal()
+```
+
+![](lab14_hw_files/figure-html/unnamed-chunk-25-1.png)<!-- -->
 
 ## That's it! 🎉
 Thanks for coding with us all winter! 
